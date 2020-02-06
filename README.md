@@ -67,7 +67,7 @@ Pickle files adhering to the following format:
     ],
     "body": [
         {
-            "section": [...],
+            "section": [intorduction|method|materials|result|discussion|summary],
             "text": "..."
         }
     ]
