@@ -3,6 +3,7 @@ import re
 import sys
 import pickle
 import getopt
+import subprocess as sp
 import numpy as np
 from pprint import pprint
 from lxml import etree
@@ -14,6 +15,8 @@ from tqdm import tqdm
 # arguments
 input_path = None
 output_path = None
+saved_output_path = None
+tmp_path = None
 persist_section = True
 
 # function to collect matching files and dirs
@@ -147,7 +150,7 @@ def extract_keywords(root):
 
 if __name__ == "__main__":
 
-    opts, _ = getopt.getopt(sys.argv[1:], "", ["input=", "output=", "persist-sec="])
+    opts, _ = getopt.getopt(sys.argv[1:], "", ["input=", "output=", "persist-sec=", "tmp="])
     for opt, arg in opts:
         if opt == "--input":
             input_path = arg
@@ -155,6 +158,8 @@ if __name__ == "__main__":
             output_path = arg
         elif opt == "--persist-sec":
             persist_section = arg
+        elif opt == "--tmp":
+            tmp_path = arg
     
     # check if the arguments are provided
     if input_path is None:
@@ -163,6 +168,21 @@ if __name__ == "__main__":
     if output_path is None:
         print("output_path not provided")
         exit(1)
+
+    # check if we are using tmp path
+    if not tmp_path is None:
+        print("processing files in tmp dir")
+
+        # set up input path
+        sp.run(["rm", "-rf", os.path.join(tmp_path, "input")])
+        sp.run(["cp", "-r", input_path, os.path.join(tmp_path, "input")])
+        input_path = os.path.join(tmp_path, "input")
+
+        # set up output path
+        sp.run(["rm", "-rf", os.path.join(tmp_path, "output")])
+        sp.run(["mkdir", os.path.join(tmp_path, "output")])
+        saved_output_path = output_path
+        output_path = os.path.join(tmp_path, "output")
 
     # collect all xml files
     xml_paths = []
@@ -189,3 +209,8 @@ if __name__ == "__main__":
         pub_num = xml_path.split("/")[-1].split(".")[0]
         with open(os.path.join(output_path, pub_num + ".pkl"), "wb") as f:
             pickle.dump(xml_data, f)
+
+    # cp the output back to original out
+    if not tmp_path is None:
+        sp.run(["rm", "-rf", saved_output_path])
+        sp.run(["cp", "-r", os.path.join(tmp_path, "output"), saved_output_path])
