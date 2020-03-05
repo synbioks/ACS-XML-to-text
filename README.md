@@ -69,7 +69,15 @@ Pickle files adhering to the following format:
         {
             "section": [introduction|method|materials|result|discussion|summary],
             "text": "..."
-        }
+        }, ...
+    ],
+    issue_pub_date: "month/day/year",
+    electron_pub_date: "month/day/year",
+    suppl_files: [
+        {
+            "suppl_filename": "...",
+            "rpath": "path/to/suppl_file"
+        }, ...
     ]
 }
 ```
@@ -77,3 +85,6 @@ Pickle files adhering to the following format:
 `abstract` contains the abstract of the article\
 `keywords` contains a list of keywords found in the metadata of the article\
 `body` is a list of dictionary where each contains the text and the sections the text is from.
+`issue_pub_date` is the date the article is published in an issue.
+`electron_pub_date` is the date the article is published electronically.
+`suppl_files` contains a list of supplementary materials and where to find them.
