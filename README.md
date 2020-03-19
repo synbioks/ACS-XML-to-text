@@ -76,7 +76,8 @@ Pickle files adhering to the following format:
     suppl_files: [
         {
             "suppl_filename": "...",
-            "rpath": "path/to/suppl_file"
+            "rpath": "path/to/suppl_file",
+            "is_sequence": [True|False]
         }, ...
     ]
 }
