@@ -1,13 +1,17 @@
-## acs-xml-parser.py
+## acs-xml-parser
 A tool for extracting text from ACS xml files.
 
-### Usage
+### Setup
+
+Update the following parameters in the second cell
 
 ```
-acs-xml-parser.py --input=<input-path> --output=<output-path>
+input_path = directory to articles
+output_path = directory to the output of this script
+suppl_path = directory to the supplementary files of the articles
 ```
 
-The script will recursively collect all xml files under the directory given to the `--input` option, and will put the processed output under the direcotry given to the `--output` option. The output files will have the same name as their corresponding input files but different extension (.pkl instead of .xml). The structure of the input directory will not be persisted in the output directory.
+The script will recursively collect all xml files under the `input_path`, and will put the processed output under the `output_path`. The output files will have the same name as their corresponding input files but different extension (.pkl instead of .xml). The structure of the input directory will not be persisted in the output directory.
 
 ## Example
 
@@ -26,13 +30,7 @@ Original:
     +-- <empty>
 ```
 
-Running the following commad:
-
-```
-acs-xml-parser.py --input=input-folder --output=output-folder
-```
-
-Result:
+Running the script will give:
 
 ```
 <working-directory>
