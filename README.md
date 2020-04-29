@@ -9,6 +9,7 @@ Update the following parameters in the second cell
 input_path = directory to articles
 output_path = directory to the output of this script
 suppl_path = directory to the supplementary files of the articles
+txt_path = directory to the plain texts of the articles
 ```
 
 The script will recursively collect all xml files under the `input_path`, and will put the processed output under the `output_path`. The output files will have the same name as their corresponding input files but different extension (.pkl instead of .xml). The structure of the input directory will not be persisted in the output directory.
@@ -75,7 +76,7 @@ Pickle files adhering to the following format:
         {
             "suppl_filename": "...",
             "rpath": "path/to/suppl_file",
-            "is_sequence": [True|False]
+            "sequences": FASTA format
         }, ...
     ]
 }
@@ -86,4 +87,7 @@ Pickle files adhering to the following format:
 `body` is a list of dictionary where each contains the text and the sections the text is from.\
 `issue_pub_date` is the date the article is published in an issue.\
 `electron_pub_date` is the date the article is published electronically.\
-`suppl_files` contains a list of supplementary materials and where to find them.
+`suppl_files` contains a list of supplementary materials and where to find them.\
+`suppl_filename` the filename of the supplementary file.\
+`rpath` the relative path to the subpplementary file, starting from `suppl_path`\
+`sequences` all the sequences extracted from this supplementary file, in FASTA format.
