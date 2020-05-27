@@ -72,6 +72,12 @@ Pickle files adhering to the following format:
     ],
     issue_pub_date: "month/day/year",
     electron_pub_date: "month/day/year",
+    history: [
+        {
+            "event": event name,
+            "time": month/day/year
+        }
+    ]
     suppl_files: [
         {
             "suppl_filename": "...",
