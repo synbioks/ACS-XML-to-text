@@ -6,9 +6,8 @@ A tool for extracting text from ACS xml files.
 Update the following parameters in the second cell
 
 ```
-input_path = directory to articles
+input_path = directory to articles and supplementary files
 output_path = directory to the output of this script
-suppl_path = directory to the supplementary files of the articles
 txt_path = directory to the plain texts of the articles
 ```
 
@@ -50,7 +49,7 @@ Running the script will give:
 
 ## Input Format
 
-ACS z39-96 standard xml files
+ACS z39-96 standard xml files with supplementary files
 
 ## Output Format
 
@@ -77,7 +76,9 @@ Pickle files adhering to the following format:
             "event": event name,
             "time": month/day/year
         }
-    ]
+    ],
+    internal_id: "...",
+    type: "article type, e.g. research, review, and etc",
     suppl_files: [
         {
             "suppl_filename": "...",
@@ -90,10 +91,12 @@ Pickle files adhering to the following format:
 
 `abstract` contains the abstract of the article\
 `keywords` contains a list of keywords found in the metadata of the article\
-`body` is a list of dictionary where each contains the text and the sections the text is from.\
-`issue_pub_date` is the date the article is published in an issue.\
-`electron_pub_date` is the date the article is published electronically.\
-`suppl_files` contains a list of supplementary materials and where to find them.\
-`suppl_filename` the filename of the supplementary file.\
+`body` is a list of dictionary where each contains the text and the sections the text is from\
+`issue_pub_date` is the date the article is published in an issue\
+`electron_pub_date` is the date the article is published electronically\
+`history` is the list of event and dates information about this article\
+`internal_id` is the id in the first line of the article xml\
+`suppl_files` contains a list of supplementary materials and where to find them\
+`suppl_filename` the filename of the supplementary file\
 `rpath` the relative path to the subpplementary file, starting from `suppl_path`\
 `sequences` all the sequences extracted from this supplementary file, in FASTA format.
