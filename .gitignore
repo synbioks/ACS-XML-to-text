@@ -2,3 +2,4 @@
 badseq-files/
 sequence-files/
 *.txt
+*.pkl
